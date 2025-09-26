@@ -1,6 +1,6 @@
 {
   "name": "onecreation",
-  "version": "1.00.0",
+  "version": "1.00.0r2",
   "description": "Minecraft-like browser game",
   "main": "server.js",
   "scripts": {
