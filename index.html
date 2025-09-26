@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Vorton [Alpha] Stats → Discord (Embed Live)</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background:#0d1117; color:#e6edf3; padding:20px; }
+    h1 { font-size:20px; }
+    pre { background:#161b22; padding:12px; border-radius:6px; white-space:pre-wrap; }
+  </style>
+</head>
+<body>
+  <h1>Live Stats — Vorton [Alpha]</h1>
+  <pre id="output">Chargement...</pre>
+
+<script>
+const PLACE_ID = 127563875465586;
+let universeId = null;
+
+// Ton webhook Discord :
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1411779190654505000/aM-WgQldth7uVSniBYOQzCzZORZIH2WMeCSE1M_-IO84Jx7bwXFo-YcvL8c8IPVTn8MC";
+
+let discordMessageId = null;
+
+async function fetchUniverseId(placeId){
+  const res = await fetch(`https://apis.roproxy.com/universes/v1/places/${placeId}/universe`);
+  const data = await res.json();
+  return data.universeId;
+}
+
+async function fetchGameStats(universeId){
+  try {
+    const [statsRes, favRes] = await Promise.all([
+      fetch(`https://games.roproxy.com/v1/games?universeIds=${universeId}`),
+      fetch(`https://games.roproxy.com/v1/games/${universeId}/favorites/count`)
+    ]);
+
+    const statsJson = await statsRes.json();
+    const entry = statsJson.data[0];
+    const favJson = await favRes.json();
+
+    return {
+      playing: entry.playing,
+      visits: entry.visits,
+      favorites: favJson.favoritesCount
+    };
+  } catch (err) {
+    console.error("Erreur API:", err);
+    return { playing: "?", visits: "?", favorites: "?" };
+  }
+}
+
+function buildEmbed(stats){
+  return {
+    username: "Vorton Stats Bot",
+    avatar_url: "https://tr.rbxcdn.com/180DAY-f203815aaa62c07b767b7053e26cdcc4/256/256/Image/Webp/noFilter",
+    embeds: [{
+      title: "📊 Vorton [Alpha] — Stats Live",
+      color: 0x4fa3ff, // bleu
+      fields: [
+        { name: "👥 Joueurs en ligne", value: `${stats.playing}`, inline: true },
+        { name: "👀 Visites", value: `${stats.visits.toLocaleString("fr-FR")}`, inline: true },
+        { name: "⭐ Favoris", value: `${stats.favorites.toLocaleString("fr-FR")}`, inline: true }
+      ],
+      footer: {
+        text: "Dernière mise à jour"
+      },
+      timestamp: new Date().toISOString()
+    }]
+  };
+}
+
+async function updateStats(){
+  if(!universeId) universeId = await fetchUniverseId(PLACE_ID);
+  const stats = await fetchGameStats(universeId);
+
+  // Affichage local
+  document.getElementById("output").textContent = 
+    `👥 Joueurs en ligne : ${stats.playing}\n` +
+    `👀 Visites : ${stats.visits.toLocaleString("fr-FR")}\n` +
+    `⭐ Favoris : ${stats.favorites.toLocaleString("fr-FR")}\n` +
+    `🕒 ${new Date().toLocaleString("fr-FR")}`;
+
+  // Premier envoi → POST
+  if(!discordMessageId){
+    const res = await fetch(WEBHOOK_URL + "?wait=true", {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify(buildEmbed(stats))
+    });
+    const data = await res.json();
+    discordMessageId = data.id; // stocker l'ID du message
+  } 
+  // Ensuite → PATCH (édition du message existant)
+  else {
+    await fetch(`${WEBHOOK_URL}/messages/${discordMessageId}`, {
+      method:"PATCH",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify(buildEmbed(stats))
+    });
+  }
+}
+
+// Rafraîchissement auto toutes les 5 secondes
+setInterval(updateStats, 5000);
+updateStats();
+</script>
+</body>
+</html>
