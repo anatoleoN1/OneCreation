@@ -1,0 +1,37 @@
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #87ceeb;
+  font-family: sans-serif;
+}
+
+canvas { display: block; }
+
+#crosshair {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  pointer-events: none;
+  user-select: none;
+}
+
+#hotbar {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+#hotbar div {
+  width: 40px;
+  height: 40px;
+  border: 2px solid white;
+  background: rgba(0,0,0,0.5);
+}
