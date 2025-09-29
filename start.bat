@@ -1,17 +1,26 @@
 @echo off
 setlocal
 
-REM Vérifie si Node.js est installé et s'il s'agit de la version 20.19.5
+REM Vérifie si Volta est installé
+where volta >nul 2>nul
+IF %ERRORLEVEL% NEQ 0 (
+    echo Volta non trouvé. Installation...
+    winget install Volta.Volta -y
+)
+
+REM Vérifie si Node.js 20.19.5 est installé via Volta
 for /f "delims=" %%v in ('node -v 2^>nul') do set NODE_VERSION=%%v
 
-if "%NODE_VERSION%"=="" (
-    echo Node.js non trouvé. Téléchargement et installation de Node.js 20.19.5...
-    powershell -Command "Invoke-WebRequest -Uri https://nodejs.org/dist/v20.19.5/node-v20.19.5-x64.msi -OutFile node20.msi"
-    msiexec /i node20.msi /quiet /norestart
-    del node20.msi
-) else (
+if "%NODE_VERSION%"=="v20.19.5" (
     echo Node.js déjà installé : %NODE_VERSION%
+) else (
+    echo Installation de Node.js 20.19.5 avec Volta...
+    volta install node@20.19.5
 )
+
+echo Vérification des versions :
+node -v
+npm -v
 
 REM Installer dépendances
 npm install
