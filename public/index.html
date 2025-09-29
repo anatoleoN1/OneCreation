@@ -3,22 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>OneCreation 1.00.1</title>
+  <title>OneCreation</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- MENU -->
-  <div id="menu">
-    <h1>OneCreation</h1>
-    <input type="text" id="worldName" placeholder="Nom du monde" />
-    <button id="createWorldBtn">Créer un monde</button>
-    <h3>Worlds disponibles :</h3>
-    <div id="worldList"></div>
-  </div>
-
-  <!-- UI en jeu -->
   <div id="ui">
-    <button id="backToMenu">Retour au menu</button>
     <div id="crosshair">+</div>
     <div id="hotbar"></div>
   </div>
@@ -27,12 +16,13 @@
   <script src="https://unpkg.com/three@0.155.0/build/three.min.js"></script>
 
   <!-- Classes -->
-  <script type="module" src="js/utils.js"></script>
-  <script type="module" src="js/renderer.js"></script>
-  <script type="module" src="js/world.js"></script>
-  <script type="module" src="js/player.js"></script>
-  <script type="module" src="js/inventory.js"></script>
-  <script type="module" src="js/menu.js"></script>
-  <script type="module" src="js/main.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/world.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/inventory.js"></script>
+
+  <!-- Main -->
+  <script src="js/main.js"></script>
 </body>
 </html>
