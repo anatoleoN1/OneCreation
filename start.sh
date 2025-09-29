@@ -1,21 +1,27 @@
 #!/bin/bash
 
-# Vérifie si Node.js est installé et s'il s'agit de la version 20.19.5
-if ! command -v node &> /dev/null
+# Vérifie si Volta est installé
+if ! command -v volta &> /dev/null
 then
-    echo "Node.js non trouvé. Installation de Node.js 20.19.5..."
-    curl -O https://nodejs.org/dist/v20.19.5/node-v20.19.5-linux-x64.tar.xz
-    sudo tar -C /usr/local --strip-components=1 -xJf node-v20.19.5-linux-x64.tar.xz
-    rm node-v20.19.5-linux-x64.tar.xz
-else
-    NODE_VERSION=$(node -v)
-    if [[ "$NODE_VERSION" != "v20.19.5" ]]; then
-        echo "Version actuelle : $NODE_VERSION. Remplacement par Node.js 20.19.5..."
-        curl -O https://nodejs.org/dist/v20.19.5/node-v20.19.5-linux-x64.tar.xz
-        sudo tar -C /usr/local --strip-components=1 -xJf node-v20.19.5-linux-x64.tar.xz
-        rm node-v20.19.5-linux-x64.tar.xz
-    fi
+    echo "Volta non trouvé. Installation..."
+    curl https://get.volta.sh | bash
+    export VOLTA_HOME="$HOME/.volta"
+    export PATH="$VOLTA_HOME/bin:$PATH"
 fi
+
+# Vérifie si Node.js 20.19.5 est installé via Volta
+NODE_VERSION=$(node -v 2>/dev/null)
+
+if [[ "$NODE_VERSION" == "v20.19.5" ]]; then
+    echo "Node.js déjà installé : $NODE_VERSION"
+else
+    echo "Installation de Node.js 20.19.5 avec Volta..."
+    volta install node@20.19.5
+fi
+
+echo "Vérification des versions :"
+node -v
+npm -v
 
 # Installer dépendances
 npm install
