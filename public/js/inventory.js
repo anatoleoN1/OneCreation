@@ -1,6 +1,6 @@
-export class inventory {
-  constructor() {
-    this.slots = ["stone","dirt","grass","wood","leaves"];
+class Inventory {
+  constructor(){
+    this.slots = ["wood","dirt","grass"];
     this.selected = 0;
     this.ui = document.getElementById("hotbar");
     this.renderUI();
@@ -12,15 +12,17 @@ export class inventory {
     });
   }
 
-  renderUI() {
+  renderUI(){
     this.ui.innerHTML="";
     this.slots.forEach((s,i)=>{
       const div=document.createElement("div");
-      div.style.borderColor = (i===this.selected) ? "yellow":"white";
+      div.style.borderColor=(i===this.selected)?"yellow":"white";
       div.title=s;
       this.ui.appendChild(div);
     });
   }
 
-  getSelectedBlock() { return this.slots[this.selected]; }
+  getSelectedBlock(){
+    return this.slots[this.selected];
+  }
 }
