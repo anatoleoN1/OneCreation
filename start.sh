@@ -9,14 +9,14 @@ then
     export PATH="$VOLTA_HOME/bin:$PATH"
 fi
 
-# Vérifie si Node.js 18.20.8 est installé via Volta
+# Vérifie si Node.js 20.19.5 est installé via Volta
 NODE_VERSION=$(node -v 2>/dev/null)
 
-if [[ "$NODE_VERSION" == "v18.20.8" ]]; then
+if [[ "$NODE_VERSION" == "v20.19.5" ]]; then
     echo "Node.js déjà installé : $NODE_VERSION"
 else
-    echo "Installation de Node.js 18.20.8 avec Volta..."
-    volta install node@18.20.8
+    echo "Installation de Node.js 20.19.5 avec Volta..."
+    volta install node@20.19.5
 fi
 
 echo "Vérification des versions :"
