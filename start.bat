@@ -8,7 +8,7 @@ IF %ERRORLEVEL% NEQ 0 (
     winget install Volta.Volta -y
 )
 
-REM Vérifie si Node.js 20.19.5 est installé via Volta
+REM Vérifie si Node.js 18.20.8 est installé via Volta
 for /f "delims=" %%v in ('node -v 2^>nul') do set NODE_VERSION=%%v
 
 if "%NODE_VERSION%"=="v18.20.8" (
