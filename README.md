@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node-18/20-blue.svg)](https://nodejs.org/)
-[![OneCreation Version](https://img.shields.io/badge/version-1.00.0r3.-red.svg)](https://github.com/anatoleoN1/OneCreation/releases)
+[![OneCreation Version](https://img.shields.io/badge/version-1.00.1r2.-red.svg)](https://github.com/anatoleoN1/OneCreation/releases)
 
 **OneCreation** is a Minecraft-like game built with **Node.js** that you can play directly in your browser.
 
