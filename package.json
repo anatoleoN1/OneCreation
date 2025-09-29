@@ -1,12 +1,13 @@
 {
-  "name": "OneCreation",
-  "version": "1.00.1",
-  "description": "OneCreation 1.00.1",
+  "name": "onecreation",
+  "version": "1.00.0r2",
+  "description": "Minecraft-like browser game",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "ws": "^8.13.0"
   }
 }
