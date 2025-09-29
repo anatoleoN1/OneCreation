@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node-18/20-blue.svg)](https://nodejs.org/)
-[![OneCreation Version](https://img.shields.io/badge/version-1.00.1r2.-red.svg)](https://github.com/anatoleoN1/OneCreation/releases)
+[![OneCreation Version](https://img.shields.io/badge/version-1.00.1r3.-red.svg)](https://github.com/anatoleoN1/OneCreation/releases)
 
 **OneCreation** is a Minecraft-like game built with **Node.js** that you can play directly in your browser.
 
@@ -29,8 +29,12 @@ Make sure to extract the ZIP **outside of any other `OneCreation` folder**. The 
 
 1. Download the ZIP file.
 2. Extract all contents into a folder named `OneCreation`.
-3. Double-click `start.bat`.
-4. You should see a message in the console:
+3. open PowerShell
+4. run the script
+```powershell
+cmd /c "copy the location of OneCreation folder\start.bat"
+```
+6. You should see a message in the console:
 ```powershell
 OneCreation launched on http://localhost:<port>
 ```
